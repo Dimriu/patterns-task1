@@ -23,11 +23,10 @@ public class DeliveryTest {
     @Test
     @DisplayName("Should successful plan and replan meeting")
     void shouldSuccessfulPlanAndReplanMeeting() {
-//        var validUser = DataGenerator.Registration.generateUser("ru");
         var daysToAddForFirstMeeting = 4;
-        var firstMeetingDate = DataGenerator.generateDate(daysToAddForFirstMeeting);
-        var daysToAddForSecondMeeting = 70;
-        var secondMeetingDate = DataGenerator.generateDate(daysToAddForFirstMeeting + daysToAddForSecondMeeting);
+        var daysToAddForSecondMeeting = daysToAddForFirstMeeting + 7;
+
+        
         // TODO: добавить логику теста в рамках которого будет выполнено планирование и перепланирование встречи.
         // Для заполнения полей формы можно использовать пользователя validUser и строки с датами в переменных
         // firstMeetingDate и secondMeetingDate. Можно также вызывать методы generateCity(locale),
@@ -43,16 +42,17 @@ public class DeliveryTest {
         $(".button").click();
 //        $(withText("Успешно!")).shouldBe(visible, Duration.ofSeconds(5));
 //        $("[data-test-id='success-notification'] .notification__content")
-//                .shouldHave(Condition.text("Встреча успешно забронирована на " + firstMeetingDate), Duration.ofSeconds(15))
+//                .shouldHave(Condition.text("Встреча успешно забронирована на " + daysToAddForFirstMeeting), Duration.ofSeconds(15))
 //                .shouldBe(visible);
-        $("[data-test-id='date'] .calendar-input__native-control .icon-button__content").click();
-        $$("button").find(exactText("Запланировать")).click();
+        $("[data-test-id='date'] .input__control").doubleClick().sendKeys(Keys.BACK_SPACE);
+        $("[data-test-id='date'] .input__control").setValue(DataGenerator.generateDate(daysToAddForSecondMeeting));
+        $(".button").click();
         $("[data-test-id='replan-notification'] .notification__content")
                 .shouldHave(Condition.text("У вас уже запланирована встреча на другую дату." + " Перепланировать?"), Duration.ofSeconds(5))
                 .shouldBe(visible);
         $(byText("Перепланировать")).click();
         $("[data-test-id='success-notification']").shouldHave(text("Встреча успешно запланирована на "
-                + secondMeetingDate));
+                + daysToAddForSecondMeeting));
     }
 
 
