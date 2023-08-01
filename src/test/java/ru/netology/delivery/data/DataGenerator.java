@@ -1,9 +1,5 @@
 package ru.netology.delivery.data;
-
 import com.github.javafaker.Faker;
-import lombok.Value;
-import lombok.val;
-
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.Locale;
@@ -13,16 +9,10 @@ public class DataGenerator {
     private DataGenerator() {
     }
 
-    public static String generateDate(int daysToAddForFirstMeeting, String pattern) {
-        String date = LocalDate.now().plusDays(daysToAddForFirstMeeting).format(DateTimeFormatter.ofPattern(pattern));
+    public static String generateDate(int shift, String pattern) {
+        String date = LocalDate.now().plusDays(shift).format(DateTimeFormatter.ofPattern(pattern));
         return date;
     }
-
-    public static String generateDateNew(int daysToAddForSecondMeeting, String pattern) {
-        String dateNew = LocalDate.now().plusDays(daysToAddForSecondMeeting).format(DateTimeFormatter.ofPattern(pattern));
-        return dateNew;
-    }
-
 
     public static String generateCity(String locale) {
         String[] cities = {"Майкоп", "Горно-Алтайск", "Уфа", "Улан-Удэ", "Махачкала", "Донецк", "Магас", "Нальчик", "Элиста", "Черкесск",
